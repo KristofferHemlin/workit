@@ -21,8 +21,10 @@ namespace WorkIT.Data
         public ActionResult<IEnumerable<Workout>> GetAllWorkouts()
         {
             return _context.Workout
-                .Include(w => w.Exercises)
-                    .ThenInclude(e => e.Sets)
+                .Include(w => w.Exercises).ThenInclude(e => e.ExerciseType)
+                .Include(w => w.Exercises).ThenInclude(e => e.Sets)
+                
+                    
                 .ToList();
         }
 
