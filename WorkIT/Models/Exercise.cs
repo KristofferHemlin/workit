@@ -4,11 +4,13 @@ namespace WorkIT.Models
 {
     public class Exercise
     {
-        public int exerciseId { get; set; }
-        public int workoutId { get; set; }
+        public int ExerciseId { get; set; }
+        public int WorkoutId { get; set; }
 
-        public int exerciseTypeId { get; set; }
-        public int duration { get; set; }
+        public int ExerciseTypeId { get; set; }
+        public ExerciseType ExerciseType { get; set; }
+
+        public int? Duration { get; set; }
 
         public ICollection<Set> Sets { get; set; }
 

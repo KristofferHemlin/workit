@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using WorkIT.Models;
@@ -20,11 +21,10 @@ namespace WorkIT.Data
         public ActionResult<IEnumerable<Workout>> GetAllWorkouts()
         {
             return _context.Workout
-                .Include(w => w.Exercises)
-                    .ThenInclude(e => e.Sets)
+                .Include(w => w.Exercises).ThenInclude(e => e.ExerciseType)
+                .Include(w => w.Exercises).ThenInclude(e => e.Sets)
                 .ToList();
         }
-
         [HttpPost]
         public ActionResult AddWorkout(Workout work)
         {
