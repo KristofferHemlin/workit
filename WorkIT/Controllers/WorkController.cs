@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WorkIT.Models;
 
 namespace WorkIT.Data
@@ -29,12 +30,10 @@ namespace WorkIT.Data
         }
 
         [HttpPost]
-        public ActionResult AddWorkout(Workout work)
+        public async Task<ActionResult> AddWorkout(Workout work)
         {
             _context.Workout.Add(work);
-            _context.SaveChanges();
-
-
+            await _context.SaveChangesAsync();
             return Ok();
         }
     }
