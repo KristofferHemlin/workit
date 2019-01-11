@@ -33,8 +33,20 @@ namespace WorkIT.Data
         public async Task<ActionResult> AddWorkout(Workout work)
         {
             _context.Workout.Add(work);
+            foreach (var e in work.Exercises)
+            {
+                Exercise exercise = new Exercise
+                {
+                    ExerciseTypeId = e.ExerciseTypeId,
+                    WorkoutId = work.workoutId,
+                    Duration = e.Duration
+                };
+                _context.Exercise.Add(e);
+            }
             await _context.SaveChangesAsync();
-            return Ok();
+
+            return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });
+
         }
     }
 }
