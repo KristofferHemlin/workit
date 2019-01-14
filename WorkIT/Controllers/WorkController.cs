@@ -40,8 +40,22 @@ namespace WorkIT.Data
                     ExerciseTypeId = e.ExerciseTypeId,
                     WorkoutId = work.workoutId,
                     Duration = e.Duration
+                   
                 };
                 _context.Exercise.Add(e);
+
+                foreach(var s in e.Sets)
+                {
+                    Set set = new Set
+                    {
+                        exerciseId = e.ExerciseId,
+                        weight = s.weight,
+                        repCount = s.repCount,
+                        restTime = s.restTime
+                    };
+                    _context.Set.Add(s);
+
+                }
             }
             await _context.SaveChangesAsync();
 
