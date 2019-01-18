@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WorkIT.Models;
+using WorkIT.Repository;
 
 namespace WorkIT.Data
 {
@@ -11,56 +9,36 @@ namespace WorkIT.Data
     [ApiController]
     public class WorkController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRepository<Workout> _workout;
+        private readonly IRepository<Exercise> _exercise;
+        private readonly IRepository<Set> _set;
 
-        public WorkController(ApplicationDbContext context)
+        public WorkController(IRepository<Workout> workout, IRepository<Exercise> exercise, IRepository<Set> set)
         {
-            _context = context;
+            _workout = workout;
+            _exercise = exercise;
+            _set = set;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Workout>> GetAllWorkouts()
+        public IEnumerable<Workout> GetAllWorkouts()
         {
-            return _context.Workout
-                .Include(w => w.Exercises).ThenInclude(e => e.ExerciseType)
-                .Include(w => w.Exercises).ThenInclude(e => e.Sets)
-                
-                    
-                .ToList();
+            return _workout.get();
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddWorkout(Workout work)
+        public ActionResult AddWorkout(Workout work)
         {
-            _context.Workout.Add(work);
-            foreach (var e in work.Exercises)
-            {
-                Exercise exercise = new Exercise
-                {
-                    ExerciseTypeId = e.ExerciseTypeId,
-                    WorkoutId = work.workoutId,
-                    Duration = e.Duration
-                   
-                };
-                _context.Exercise.Add(e);
+            _workout.create(work);
+            _workout.SaveChanges();
 
-                foreach(var s in e.Sets)
-                {
-                    Set set = new Set
-                    {
-                        exerciseId = e.ExerciseId,
-                        weight = s.weight,
-                        repCount = s.repCount,
-                        restTime = s.restTime
-                    };
-                    _context.Set.Add(s);
-
-                }
-            }
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });
-
+            return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });      
+        }
+        [HttpDelete("{id}")]
+        public ActionResult<Workout> DeleteWorkout(int id)
+        { 
+            _workout.delete(id);
+            return Ok();
         }
     }
 }

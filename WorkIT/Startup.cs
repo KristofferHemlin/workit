@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WorkIT.Data;
+using WorkIT.Models;
+using WorkIT.Repository;
 
 namespace WorkIT
 {
@@ -34,6 +36,9 @@ namespace WorkIT
 
             services.AddCors();
 
+            services.AddScoped<IRepository <Workout>, WorkoutRepository>();
+            services.AddScoped<IRepository<Set>, SetRepository>();
+            services.AddScoped<IRepository<Exercise>, ExerciseRepository>();
             services.AddMvc()
                 .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
