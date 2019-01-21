@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WorkIT.Models;
+using WorkIT.Repository;
 
 namespace WorkIT.Data
 {
@@ -11,25 +9,25 @@ namespace WorkIT.Data
     [ApiController]
     public class WorkController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRepository<Workout> _workout;
+        private readonly IRepository<Exercise> _exercise;
+        private readonly IRepository<Set> _set;
 
-        public WorkController(ApplicationDbContext context)
+        public WorkController(IRepository<Workout> workout, IRepository<Exercise> exercise, IRepository<Set> set)
         {
-            _context = context;
+            _workout = workout;
+            _exercise = exercise;
+            _set = set;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Workout>> GetAllWorkouts()
+        public IEnumerable<Workout> GetAllWorkouts()
         {
-            return _context.Workout
-                .Include(w => w.Exercises).ThenInclude(e => e.ExerciseType)
-                .Include(w => w.Exercises).ThenInclude(e => e.Sets)
-                
-                    
-                .ToList();
+            return _workout.get();
         }
 
         [HttpPost]
+<<<<<<< HEAD
         public async Task<ActionResult<Workout>> AddWorkout(Workout work)
         {
             _context.Workout.Add(work);
@@ -66,6 +64,20 @@ namespace WorkIT.Data
 
 
             return workout;
+=======
+        public ActionResult AddWorkout(Workout work)
+        {
+            _workout.create(work);
+            _workout.SaveChanges();
+
+            return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });      
+        }
+        [HttpDelete("{id}")]
+        public ActionResult<Workout> DeleteWorkout(int id)
+        { 
+            _workout.delete(id);
+            return Ok();
+>>>>>>> 5fba45121a26ae7787833d916af4f599d45f70b6
         }
     }
 }
