@@ -24,6 +24,7 @@ namespace WorkIT.Data
         public IEnumerable<Workout> GetAllWorkouts()
         {
             return _workout.get();
+
         }
 
         [HttpPost]
@@ -33,6 +34,12 @@ namespace WorkIT.Data
             _workout.SaveChanges();
 
             return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });      
+        }
+        [HttpPut]
+        public IActionResult UpdateWorkout(long workoutId, Workout work)
+        {
+            _workout.update(work);
+            return CreatedAtAction("GetAllWorkouts", new { work });
         }
         [HttpDelete("{id}")]
         public ActionResult<Workout> DeleteWorkout(int id)
