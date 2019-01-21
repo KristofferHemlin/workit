@@ -30,37 +30,42 @@ namespace WorkIT.Data
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddWorkout(Workout work)
+        public async Task<ActionResult<Workout>> AddWorkout(Workout work)
         {
             _context.Workout.Add(work);
-            foreach (var e in work.Exercises)
-            {
-                Exercise exercise = new Exercise
-                {
-                    ExerciseTypeId = e.ExerciseTypeId,
-                    WorkoutId = work.workoutId,
-                    Duration = e.Duration
-                   
-                };
-                _context.Exercise.Add(e);
-
-                foreach(var s in e.Sets)
-                {
-                    Set set = new Set
-                    {
-                        exerciseId = e.ExerciseId,
-                        weight = s.weight,
-                        repCount = s.repCount,
-                        restTime = s.restTime
-                    };
-                    _context.Set.Add(s);
-
-                }
-            }
+            
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });
 
+        }
+        [HttpPut("{workoutId}")]
+        public async Task<IActionResult> UpdateWorkout(long workoutId, Workout work)
+        {
+            if(workoutId != work.workoutId)
+            {
+                return BadRequest();
+            }
+            _context.Entry(work).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetAllWorkouts", new { work });
+        }
+
+
+
+        [HttpDelete("{workoutId}")]
+        public async Task<ActionResult<Workout>> DeleteWorkout(int workoutId)
+        {
+            var workout = await _context.Workout.FindAsync(workoutId);
+            if(workout == null)
+            {
+                return NotFound();
+            }
+            _context.Workout.Remove(workout);
+            await _context.SaveChangesAsync();
+
+
+            return workout;
         }
     }
 }
