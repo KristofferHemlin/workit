@@ -68,7 +68,12 @@ namespace WorkIT.Repository
 
         public void update(Workout work)
         {
-            throw new NotImplementedException();
+            if (workoutId != work.workoutId)
+            {
+                return BadRequest();
+            }
+            _context.Entry(work).State = EntityState.Modified;
+            _context.SaveChangesAsync();
         }
     }
 }
