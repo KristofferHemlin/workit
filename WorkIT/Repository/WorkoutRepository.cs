@@ -19,7 +19,7 @@ namespace WorkIT.Repository
         public void create(Workout work)
         {
             _context.Workout.Add(work);
-            
+            _context.SaveChanges();
         }
 
         public void delete(int id)
