@@ -27,46 +27,6 @@ namespace WorkIT.Data
 
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult<Workout>> AddWorkout(Workout work)
-        //{
-        //    _workout.create(work);
-        //    _context.Workout.Add(work);
-
-        //    await _workout.SaveChangesAsync();
-
-
-        //    return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });
-
-        //}
-        //[HttpPut("{workoutId}")]
-        //public async Task<IActionResult> UpdateWorkout(long workoutId, Workout work)
-        //{
-        //    if (workoutId != work.workoutId)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    _context.Entry(work).State = EntityState.Modified;
-        //    await _context.SaveChangesAsync();
-        //    return CreatedAtAction("GetAllWorkouts", new { work });
-        //}
-
-
-
-        //[HttpDelete("{workoutId}")]
-        //public async Task<ActionResult<Workout>> DeleteWorkout(int workoutId)
-        //{
-        //    var workout = await _context.Workout.FindAsync(workoutId);
-        //    if(workout == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    _context.Workout.Remove(workout);
-        //    await _context.SaveChangesAsync();
-
-
-        //    return workout;
-
         [HttpPost]
         public ActionResult AddWorkout(Workout work)
         {
@@ -75,16 +35,20 @@ namespace WorkIT.Data
 
             return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });      
         }
-        [HttpPut]
+
+        [HttpPut("{workoutId}")]
         public IActionResult UpdateWorkout(long workoutId, Workout work)
         {
             _workout.update(work);
+            _workout.SaveChanges();
             return CreatedAtAction("GetAllWorkouts", new { work });
         }
+
         [HttpDelete("{id}")]
         public ActionResult<Workout> DeleteWorkout(int id)
         { 
             _workout.delete(id);
+            _workout.SaveChanges();
             return Ok();
         }
     }

@@ -27,7 +27,6 @@ namespace WorkIT.Repository
             var workout =  _context.Workout.Find(id);
           
             _context.Workout.Remove(workout);
-            _context.SaveChangesAsync();
         }
 
         public void delete(Workout work)
@@ -68,12 +67,12 @@ namespace WorkIT.Repository
 
         public void update(Workout work)
         {
-            if (workoutId != work.workoutId)
-            {
-                return BadRequest();
-            }
+            //if (work != work.workoutId)
+            //{
+            //    return BadRequest();
+            //}
             _context.Entry(work).State = EntityState.Modified;
-            _context.SaveChangesAsync();
+
         }
     }
 }
