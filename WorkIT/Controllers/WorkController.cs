@@ -28,6 +28,44 @@ namespace WorkIT.Data
         }
 
         [HttpPost]
+<<<<<<< HEAD
+        public async Task<ActionResult<Workout>> AddWorkout(Workout work)
+        {
+            _context.Workout.Add(work);
+            
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });
+
+        }
+        [HttpPut("{workoutId}")]
+        public async Task<IActionResult> UpdateWorkout(long workoutId, Workout work)
+        {
+            if(workoutId != work.workoutId)
+            {
+                return BadRequest();
+            }
+            _context.Entry(work).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetAllWorkouts", new { work });
+        }
+
+
+
+        [HttpDelete("{workoutId}")]
+        public async Task<ActionResult<Workout>> DeleteWorkout(int workoutId)
+        {
+            var workout = await _context.Workout.FindAsync(workoutId);
+            if(workout == null)
+            {
+                return NotFound();
+            }
+            _context.Workout.Remove(workout);
+            await _context.SaveChangesAsync();
+
+
+            return workout;
+=======
         public ActionResult AddWorkout(Workout work)
         {
             _workout.create(work);
@@ -46,6 +84,7 @@ namespace WorkIT.Data
         { 
             _workout.delete(id);
             return Ok();
+>>>>>>> 5fba45121a26ae7787833d916af4f599d45f70b6
         }
     }
 }
