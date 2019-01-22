@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using WorkIT.Models;
 using WorkIT.Repository;
 
-namespace WorkIT.Data
+namespace WorkIT.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class WorkController : ControllerBase
     {
         private readonly IRepository<Workout> _workout;
-       
 
         public WorkController(IRepository<Workout> workout)
         {
