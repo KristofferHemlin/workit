@@ -10,14 +10,11 @@ namespace WorkIT.Data
     public class WorkController : ControllerBase
     {
         private readonly IRepository<Workout> _workout;
-        private readonly IRepository<Exercise> _exercise;
-        private readonly IRepository<Set> _set;
+       
 
-        public WorkController(IRepository<Workout> workout, IRepository<Exercise> exercise, IRepository<Set> set)
+        public WorkController(IRepository<Workout> workout)
         {
             _workout = workout;
-            _exercise = exercise;
-            _set = set;
         }
 
         [HttpGet]
