@@ -50,8 +50,6 @@ namespace WorkIT.Repository
                 .Include(e => e.Exercises).ThenInclude(s => s.Sets)
                 .Where(x => x.workoutId == id)
                 .First();
-            return _context.Workout.Find(1);
-            //throw new NotImplementedException();
         }
 
         public int SaveChanges()
