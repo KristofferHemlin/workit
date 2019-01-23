@@ -9,7 +9,7 @@ namespace WorkIT.Repository
         void delete(int id);
         void delete(Ted item);
         List <Ted> get();
-        Ted getByID();
+        Ted getByID(int id);
         int SaveChanges();
     }
 }

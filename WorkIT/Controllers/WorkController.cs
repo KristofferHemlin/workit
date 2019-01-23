@@ -22,6 +22,11 @@ namespace WorkIT.Controllers
             return _workout.get();
 
         }
+        [HttpGet("{id}")]
+        public ActionResult<Workout> GetWorkout (int id)
+        {
+            return _workout.getByID(id);
+        }
 
         [HttpPost]
         public ActionResult AddWorkout(Workout work)

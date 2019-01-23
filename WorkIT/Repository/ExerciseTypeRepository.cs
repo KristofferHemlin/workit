@@ -36,7 +36,7 @@ namespace WorkIT.Repository
             return _context.ExerciseType.ToList();
         }
 
-        public ExerciseType getByID()
+        public ExerciseType getByID(int id)
         {
             throw new NotImplementedException();
         }

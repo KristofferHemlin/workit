@@ -34,7 +34,7 @@ namespace WorkIT.Repository
             throw new NotImplementedException();
         }
 
-        public Set getByID()
+        public Set getByID(int id)
         {
             throw new NotImplementedException();
         }

@@ -39,40 +39,29 @@ namespace WorkIT.Repository
             return _context.Workout
                 .Include(w => w.Exercises).ThenInclude(e => e.ExerciseType)
                 .Include(e => e.Exercises).ThenInclude(s => s.Sets).ToList();
-            
-            //_context.Workout
-            //    .Include(w => w.Exercises).ThenInclude(e => e.ExerciseType)
-            //    .Include(w => w.Exercises).ThenInclude(e => e.Sets).ToList();
         }
 
-        public Workout getByID()
+      
+
+        public Workout getByID(int id)
         {
-            //var todoItem = await _context.TodoItems.FindAsync(id);
-            //var workout = _context.Workout.FindAsync(id);
-
-            //if (todoItem == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return todoItem;
-            throw new NotImplementedException();
+            return _context.Workout
+                .Include(w => w.Exercises).ThenInclude(e => e.ExerciseType)
+                .Include(e => e.Exercises).ThenInclude(s => s.Sets)
+                .Where(x => x.workoutId == id)
+                .First();
+            return _context.Workout.Find(1);
+            //throw new NotImplementedException();
         }
 
         public int SaveChanges()
         {
-            return _context.SaveChanges();
-            
+            return _context.SaveChanges();           
         }
 
         public void update(Workout work)
         {
-            //if (work != work.workoutId)
-            //{
-            //    return BadRequest();
-            //}
             _context.Entry(work).State = EntityState.Modified;
-
         }
     }
 }
