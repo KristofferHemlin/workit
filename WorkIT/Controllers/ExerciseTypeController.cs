@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using WorkIT.Data;
 using WorkIT.Models;
 using WorkIT.Repository;
 
@@ -15,12 +18,13 @@ namespace WorkIT.Controllers
         {
             _exerciseType = exerciseType;
         }
+       
 
         [HttpGet]
         public IEnumerable<ExerciseType> GetAllExerciseTypes()
         {
             return _exerciseType.get();
-            
         }
+      
     }
 }

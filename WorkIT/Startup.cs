@@ -40,6 +40,7 @@ namespace WorkIT
             services.AddScoped<IRepository<Set>, SetRepository>();
             services.AddScoped<IRepository<Exercise>, ExerciseRepository>();
             services.AddScoped<IRepository<ExerciseType>, ExerciseTypeRepository>();
+            services.AddScoped<IRepository<Muscle>, MuscleRepository>();
             services.AddMvc()
                 .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -7,17 +7,17 @@ using WorkIT.Models;
 
 namespace WorkIT.Repository
 {
-    public class ExerciseTypeRepository : IRepository<ExerciseType>
+    public class MuscleRepository : IRepository<Muscle>
     {
         private readonly ApplicationDbContext _context;
 
-        public ExerciseTypeRepository(ApplicationDbContext context)
+        public MuscleRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
 
-        public void create(ExerciseType item)
+        public void create(Muscle item)
         {
             throw new NotImplementedException();
         }
@@ -27,18 +27,18 @@ namespace WorkIT.Repository
             throw new NotImplementedException();
         }
 
-        public void delete(ExerciseType item)
+        public void delete(Muscle item)
         {
             throw new NotImplementedException();
         }
 
-        public List<ExerciseType> get()
+        public List<Muscle> get()
         {
-            return _context.ExerciseType
-              .Include(w => w.Muscles).ThenInclude(e => e.Muscle).ToList();
+            return _context.Muscles
+                .Include(e => e.ExerciseTypes).ThenInclude(e => e.ExerciseType).ToList();
         }
 
-        public ExerciseType getByID(int id)
+        public Muscle getByID(int id)
         {
             throw new NotImplementedException();
         }
@@ -48,10 +48,9 @@ namespace WorkIT.Repository
             throw new NotImplementedException();
         }
 
-        public void update(ExerciseType item)
+        public void update(Muscle item)
         {
             throw new NotImplementedException();
         }
-
     }
 }
