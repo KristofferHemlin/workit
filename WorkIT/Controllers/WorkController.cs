@@ -15,6 +15,12 @@ namespace WorkIT.Controllers
         {
             _workout = workout;
         }
+        //private readonly ApplicationDbContext _context;
+
+        //public WorkController(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
 
         [HttpGet]
         public IEnumerable<Workout> GetAllWorkouts()
@@ -23,7 +29,7 @@ namespace WorkIT.Controllers
 
         }
         [HttpGet("{id}")]
-        public ActionResult<Workout> GetWorkout (int id)
+        public ActionResult<Workout> GetWorkout(int id)
         {
             return _workout.getByID(id);
         }
@@ -34,20 +40,20 @@ namespace WorkIT.Controllers
             _workout.create(work);
             _workout.SaveChanges();
 
-            return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });      
+            return CreatedAtAction("GetAllWorkouts", new { id = work.workoutId });
         }
 
         [HttpPut("{workoutId}")]
         public IActionResult UpdateWorkout(long workoutId, Workout work)
         {
             _workout.update(work);
-            _workout.SaveChanges();
+            _workout.SaveChanges();    
             return CreatedAtAction("GetAllWorkouts", new { work });
         }
 
         [HttpDelete("{id}")]
         public ActionResult<Workout> DeleteWorkout(int id)
-        { 
+        {
             _workout.delete(id);
             _workout.SaveChanges();
             return Ok();

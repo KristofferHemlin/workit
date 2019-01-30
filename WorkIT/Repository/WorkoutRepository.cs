@@ -59,7 +59,7 @@ namespace WorkIT.Repository
 
         public void update(Workout work)
         {
-            _context.Entry(work).State = EntityState.Modified;
+            _context.Workout.Update(work).State = EntityState.Modified;
         }
     }
 }
