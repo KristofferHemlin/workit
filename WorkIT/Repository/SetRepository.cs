@@ -21,7 +21,9 @@ namespace WorkIT.Repository
 
         public void delete(int id)
         {
-            throw new NotImplementedException();
+            var set = _context.Set.Find(id);
+
+            _context.Set.Remove(set);
         }
 
         public void delete(Set item)

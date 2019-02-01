@@ -69,8 +69,6 @@ namespace WorkIT.Repository
 
         public void update(Workout work)
         {
-
-            // _context.Update(newWork);
             _context.Workout.Remove(work);
             //var oldExercises = exerciseRepo.get(x => x.WorkoutId == work.workoutId);
             //var oldExercisesIds = oldExercises.Select(x => x.ExerciseId);
