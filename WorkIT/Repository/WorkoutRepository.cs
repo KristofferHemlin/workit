@@ -60,9 +60,9 @@ namespace WorkIT.Repository
         public void update(object newWork, Workout work)
         {
             
-            var updateWork = _context.Workout.Update(work).State = EntityState.Modified;
-
-            Console.WriteLine(updateWork.Equals(newWork));
+            //_context.Entry(work).State = EntityState.Modified;
+            _context.Update(newWork);
+            
         }
     }
 }
