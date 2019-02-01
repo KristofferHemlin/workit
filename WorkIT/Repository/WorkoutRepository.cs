@@ -71,7 +71,12 @@ namespace WorkIT.Repository
         {
             var oldExercises = exerciseRepo.get(x => x.WorkoutId == work.workoutId);
             var oldExercisesIds = oldExercises.Select(x => x.ExerciseId);
-            var exerciesToDelete = oldExercises.Where(x => !work.Exercises.Any(y => y.ExerciseId == x.ExerciseId));
+            var exercisesToDelete = oldExercises.Where(x => !work.Exercises.Any(y => y.ExerciseId == x.ExerciseId));
+
+            foreach (var item in exercisesToDelete)
+            {
+                exerciseRepo.delete(item.ExerciseId);
+            }
 
             var updateWork = _context.Workout.Update(work);
 
