@@ -57,10 +57,12 @@ namespace WorkIT.Repository
             return _context.SaveChanges();           
         }
 
-        public void update(Workout work)
+        public void update(object newWork, Workout work)
         {
-            var updateWork = _context.Workout.Update(work).State = EntityState.Modified;
             
+            var updateWork = _context.Workout.Update(work).State = EntityState.Modified;
+
+            Console.WriteLine(updateWork.Equals(newWork));
         }
     }
 }

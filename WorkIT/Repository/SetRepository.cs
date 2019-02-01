@@ -44,7 +44,7 @@ namespace WorkIT.Repository
             throw new NotImplementedException();
         }
 
-        public void update(Set item)
+        public void update(object newWork, Set item)
         {
             throw new NotImplementedException();
         }

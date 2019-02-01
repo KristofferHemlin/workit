@@ -44,9 +44,12 @@ namespace WorkIT.Controllers
         }
 
         [HttpPut("{workoutId}")]
-        public IActionResult UpdateWorkout(long workoutId, Workout work)
+        public IActionResult UpdateWorkout(int workoutId, Workout work)
         {
-            _workout.update(work);
+            var newWork = _workout.getByID(workoutId);
+
+
+            _workout.update(newWork, work);
             _workout.SaveChanges();    
             return CreatedAtAction("GetAllWorkouts", new { work });
         }
