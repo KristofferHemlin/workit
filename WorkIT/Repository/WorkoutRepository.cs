@@ -11,13 +11,13 @@ namespace WorkIT.Repository
     public class WorkoutRepository : IRepository<Workout>
     {
         private readonly ApplicationDbContext _context;
-        private readonly IRepository<Exercise> exerciseRepo;
+        //private readonly IRepository<Exercise> exerciseRepo;
 
-        public WorkoutRepository(ApplicationDbContext context,
-            IRepository<ExerciseRepository> exerciseRepo)
+        public WorkoutRepository(ApplicationDbContext context)
+            //IRepository<ExerciseRepository> exerciseRepo)
         {
             _context = context;
-            this.exerciseRepo = exerciseRepo;
+            //this.exerciseRepo = exerciseRepo;
         }
 
         public void create(Workout work)
@@ -69,25 +69,19 @@ namespace WorkIT.Repository
 
         public void update(Workout work)
         {
-<<<<<<< HEAD
-            
-            //_context.Entry(work).State = EntityState.Modified;
-            _context.Update(newWork);
-            
-=======
-            var oldExercises = exerciseRepo.get(x => x.WorkoutId == work.workoutId);
-            var oldExercisesIds = oldExercises.Select(x => x.ExerciseId);
-            var exercisesToDelete = oldExercises.Where(x => !work.Exercises.Any(y => y.ExerciseId == x.ExerciseId));
 
-            foreach (var item in exercisesToDelete)
-            {
-                exerciseRepo.delete(item.ExerciseId);
-            }
+            // _context.Update(newWork);
+            _context.Workout.Remove(work);
+            //var oldExercises = exerciseRepo.get(x => x.WorkoutId == work.workoutId);
+            //var oldExercisesIds = oldExercises.Select(x => x.ExerciseId);
+            //var exercisesToDelete = oldExercises.Where(x => !work.Exercises.Any(y => y.ExerciseId == x.ExerciseId));
 
-            var updateWork = _context.Workout.Update(work);
+            //foreach (var item in exercisesToDelete)
+            //{
+            //    exerciseRepo.delete(item.ExerciseId);
+            //}
 
-            //Console.WriteLine(updateWork.Equals(newWork));
->>>>>>> 99cf93b0d4495d08bf38c24b25e3e56593f053bf
+            //var updateWork = _context.Workout.Update(work);
         }
     }
 }

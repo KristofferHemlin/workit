@@ -44,25 +44,21 @@ namespace WorkIT.Controllers
                        
         }
 
-        [HttpPut("{workoutId}")]
-        public IActionResult UpdateWorkout(int workoutId, Workout work)
-        {
-<<<<<<< HEAD
-            var newWork = _workout.getByID(workoutId);
-            newWork = work;
+        //[HttpPut("{workoutId}")]
+        //public IActionResult UpdateWorkout(int workoutId, Workout work)
+        //{
+        //    var newWork = _workout.getByID(workoutId);
+        //    newWork = work;
 
-            Console.WriteLine(work.Equals(newWork));
-            _workout.SaveChanges();
-            _workout.update(newWork, work);
-=======
-            //var newWork = _workout.getByID(workoutId);
+        //    Console.WriteLine(work.Equals(newWork));
+        //    _workout.SaveChanges();
+        //    _workout.update(newWork, work);
 
 
-            _workout.update(work);
->>>>>>> 99cf93b0d4495d08bf38c24b25e3e56593f053bf
-            _workout.SaveChanges();    
-            return CreatedAtAction("GetAllWorkouts", new { work });
-        }
+        //    _workout.update(work);
+        //    _workout.SaveChanges();    
+        //    return CreatedAtAction("GetAllWorkouts", new { work });
+        //}
 
         [HttpDelete("{id}")]
         public ActionResult<Workout> DeleteWorkout(int id)
