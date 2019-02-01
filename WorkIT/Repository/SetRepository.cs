@@ -43,7 +43,7 @@ namespace WorkIT.Repository
 
         public int SaveChanges()
         {
-            throw new NotImplementedException();
+            return _context.SaveChanges();
         }
 
         public void update(Set item)
