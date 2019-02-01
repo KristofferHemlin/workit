@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using WorkIT.Models;
 using WorkIT.Repository;
@@ -46,10 +47,10 @@ namespace WorkIT.Controllers
         [HttpPut("{workoutId}")]
         public IActionResult UpdateWorkout(int workoutId, Workout work)
         {
-            var newWork = _workout.getByID(workoutId);
+            //var newWork = _workout.getByID(workoutId);
 
 
-            _workout.update(newWork, work);
+            _workout.update(work);
             _workout.SaveChanges();    
             return CreatedAtAction("GetAllWorkouts", new { work });
         }

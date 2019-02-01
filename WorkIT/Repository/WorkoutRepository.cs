@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using WorkIT.Data;
 using WorkIT.Models;
 
@@ -10,10 +11,13 @@ namespace WorkIT.Repository
     public class WorkoutRepository : IRepository<Workout>
     {
         private readonly ApplicationDbContext _context;
+        private readonly IRepository<Exercise> exerciseRepo;
 
-        public WorkoutRepository(ApplicationDbContext context)
+        public WorkoutRepository(ApplicationDbContext context,
+            IRepository<ExerciseRepository> exerciseRepo)
         {
             _context = context;
+            this.exerciseRepo = exerciseRepo;
         }
 
         public void create(Workout work)
@@ -41,7 +45,13 @@ namespace WorkIT.Repository
                 .Include(e => e.Exercises).ThenInclude(s => s.Sets).ToList();
         }
 
-      
+        public List<Workout> get(Expression<Func<Workout, bool>> predicate)
+        {
+            return _context.Workout
+                .Where(predicate)
+                .Include(w => w.Exercises).ThenInclude(e => e.ExerciseType)
+                .Include(e => e.Exercises).ThenInclude(s => s.Sets).ToList();
+        }
 
         public Workout getByID(int id)
         {
@@ -57,12 +67,15 @@ namespace WorkIT.Repository
             return _context.SaveChanges();           
         }
 
-        public void update(object newWork, Workout work)
+        public void update(Workout work)
         {
-            
-            var updateWork = _context.Workout.Update(work).State = EntityState.Modified;
+            var oldExercises = exerciseRepo.get(x => x.WorkoutId == work.workoutId);
+            var oldExercisesIds = oldExercises.Select(x => x.ExerciseId);
+            var exerciesToDelete = oldExercises.Where(x => !work.Exercises.Any(y => y.ExerciseId == x.ExerciseId));
 
-            Console.WriteLine(updateWork.Equals(newWork));
+            var updateWork = _context.Workout.Update(work);
+
+            //Console.WriteLine(updateWork.Equals(newWork));
         }
     }
 }
