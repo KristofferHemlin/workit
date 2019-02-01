@@ -48,7 +48,7 @@ namespace WorkIT.Repository
             throw new NotImplementedException();
         }
 
-        public void update(object newWork, Muscle item)
+        public void update(Muscle item)
         {
             throw new NotImplementedException();
         }
