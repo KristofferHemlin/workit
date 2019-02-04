@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 
 namespace WorkIT.Repository
 {
@@ -11,8 +9,9 @@ namespace WorkIT.Repository
         void delete(int id);
         void delete(Ted item);
         List<Ted> get();
-        //List<Ted> get(Expression<Func<Ted, bool>> predicate);
         Ted getByID(int id);
         int SaveChanges();
+        //List<Ted> get(Expression<Func<Ted, bool>> predicate);
+
     }
 }

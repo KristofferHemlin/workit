@@ -59,26 +59,3 @@ namespace WorkIT.Controllers
         }
     }
 }
-
-//public override async Task UpdateAsync(NewsUpdateDto dto)
-//{
-//    var error = Validate(dto);
-//    if (!string.IsNullOrWhiteSpace(error.Message)) throw new AppGuiException(error.Message, error.ClientMessage);
-
-//    Check previous realestate and create or delete depending on actual status
-//   var previousItems = await realEstateSvc.GetAsync(x => x.NewsID == dto.ID);
-//    var itemsToCreate = dto.RealEstates.Where(x => x.ID.IsEmpty());
-//    var itemsToDelete = previousItems.Where(x => !dto.RealEstates.Select(y => y.ID).Contains(x.ID));
-//    var tasks = new List<Task>();
-//    foreach (var item in itemsToCreate)
-//    {
-//        item.NewsID = dto.ID;
-//        tasks.Add(realEstateSvc.CreateAsync(item));
-//    }
-//    foreach (var item in itemsToDelete)
-//    {
-//        tasks.Add(realEstateSvc.DeleteAsync(item.ID));
-//    }
-
-//    await base.UpdateAsync(dto);
-//}

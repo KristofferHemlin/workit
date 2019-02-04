@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <Compile Remove="Data\WorkController.cs" />
+    <Compile Remove="Migrations\20190204144918_FixAllStuff.cs" />
+    <Compile Remove="Migrations\20190204144918_FixAllStuff.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
