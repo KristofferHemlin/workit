@@ -37,7 +37,7 @@ namespace WorkIT
             services.AddCors();
 
             services.AddScoped<IRepository <Workout>, WorkoutRepository>();
-            //services.AddScoped<IRepository<Set>, SetRepository>();
+            services.AddScoped<IRepository<Set>, SetRepository>();
             services.AddScoped<IRepository<Exercise>, ExerciseRepository>();
             services.AddScoped<IRepository<ExerciseType>, ExerciseTypeRepository>();
             services.AddScoped<IRepository<Muscle>, MuscleRepository>();

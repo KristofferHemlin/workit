@@ -42,14 +42,6 @@ namespace WorkIT.Repository
                 .Include(e => e.Exercises).ThenInclude(s => s.Sets).ToList();
         }
 
-        public List<Workout> get(Expression<Func<Workout, bool>> predicate)
-        {
-            return _context.Workout
-                .Where(predicate)
-                .Include(w => w.Exercises).ThenInclude(e => e.ExerciseType)
-                .Include(e => e.Exercises).ThenInclude(s => s.Sets).ToList();
-        }
-
         public Workout getByID(int id)
         {
             return _context.Workout
@@ -66,8 +58,7 @@ namespace WorkIT.Repository
 
         public void update(Workout work)
         {
-            _context.Entry(work).State = EntityState.Modified;
-            _context.SaveChanges();
+            var updateWork = _context.Workout.Update(work).State = EntityState.Modified;
         }
     }
 }

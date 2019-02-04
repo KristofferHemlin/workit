@@ -42,7 +42,7 @@ namespace WorkIT.Controllers
         public IActionResult UpdateWorkout(Workout work)
         {
             _workout.update(work);
-            //_workout.SaveChanges();
+            _workout.SaveChanges();
             return CreatedAtAction("GetAllWorkouts", new { work });
         }
 
