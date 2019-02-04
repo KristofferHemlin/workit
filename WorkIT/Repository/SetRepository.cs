@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using WorkIT.Data;
 using WorkIT.Models;
 
@@ -33,7 +35,7 @@ namespace WorkIT.Repository
 
         public List<Set> get()
         {
-            throw new NotImplementedException();
+            return _context.Set.ToList();
         }
 
         public Set getByID(int id)
@@ -46,9 +48,9 @@ namespace WorkIT.Repository
             return _context.SaveChanges();
         }
 
-        public void update(Set item)
+        public void update(Set set)
         {
-            throw new NotImplementedException();
+            _context.Entry(set).State = EntityState.Modified;
         }
     }
 }

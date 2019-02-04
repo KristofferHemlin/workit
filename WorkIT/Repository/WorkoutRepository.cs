@@ -69,7 +69,7 @@ namespace WorkIT.Repository
 
         public void update(Workout work)
         {
-            _context.Workout.Remove(work);
+            //_context.Workout.Remove(work);
             //var oldExercises = exerciseRepo.get(x => x.WorkoutId == work.workoutId);
             //var oldExercisesIds = oldExercises.Select(x => x.ExerciseId);
             //var exercisesToDelete = oldExercises.Where(x => !work.Exercises.Any(y => y.ExerciseId == x.ExerciseId));
@@ -79,7 +79,7 @@ namespace WorkIT.Repository
             //    exerciseRepo.delete(item.ExerciseId);
             //}
 
-            //var updateWork = _context.Workout.Update(work);
+            _context.Entry(work).State = EntityState.Modified;
         }
     }
 }

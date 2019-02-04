@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using WorkIT.Models;
 using WorkIT.Repository;
 
@@ -30,6 +26,29 @@ namespace WorkIT.Controllers
                 return Ok();
             }
             return NotFound();
+        }
+        [HttpGet]
+        public IEnumerable<Set> GetAllSets()
+        {
+            return _set.get();
+
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateWorkout(Set set)
+        {
+            _set.update(set);
+            _set.SaveChanges();
+            return CreatedAtAction("GetAllSets", new { set });
+        }
+
+        [HttpPost]
+        public ActionResult AddSet(Set set)
+        {
+            _set.create(set);
+            _set.SaveChanges();
+            return CreatedAtAction("GetAllWorkouts", new { id = set.setId });
+
         }
     }
 }
